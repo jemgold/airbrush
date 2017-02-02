@@ -1,0 +1,21 @@
+version: '2'
+services:
+  node:
+    env_file: .env
+    build: .
+    command: npm start tweets.csv
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - 'redis:/var/lib/redis/data'
+volumes:
+  redis:
+    driver: local
